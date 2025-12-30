@@ -33,9 +33,8 @@ I deployed **ModSecurity** as a Web Application Firewall (WAF) for blocking some
 * **Action:**
    Set the Configuration from **Passive Detection** to **Active Blocking** mode. This Ensure that any traffic request matching the attack signature immediately dropped with a 403 error, rather than just being logged.
 *  **Configuration Change**
- '''
-Apache
-  # Before (Monitoring Only) 
+ Apache
+   Before (Monitoring Only) 
   SecRuleEngine DetectionOnly
 
 '''
