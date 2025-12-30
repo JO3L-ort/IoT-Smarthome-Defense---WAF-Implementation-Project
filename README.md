@@ -14,3 +14,18 @@ Tech Stack:
   <img src="https://img.shields.io/badge/Tool-SQLMap-red?style=for-the-badge&logo=hackthebox&logoColor=white" />
 </p>
 
+## Attacks Simulation (Before Defense)
+Instead of a blind attack, I executed a structured 3-stage exploitation process to compromise the IoT panel:
+1.  **Discovery:** Identified an unsanitized input parameter (`id`) in the device configuration page.
+2.  **Enumeration:** Mapped the database structure to find the specific table storing admin credentials (`tb_user`).
+3.  **Exfiltration (The Final Blow):** Dumped the username and hashed passwords to gain unauthorized access.
+
+**Execution Command**
+sqlmap -u "http://localhost/Dumb/validasi.php" --data="username=test&password=test" -D smarthome_hackthecity -T tb_user -C "username,password" --dump --batch --dbs  --random-agent --tamper=space2comment
+<img width="522" height="184" alt="Leaked Smarthome Dump Database" src="https://github.com/user-attachments/assets/ab4e44b7-313e-4ca8-ab98-42ac52fbf455" />
+
+## Defense Implementation
+
+
+
+
