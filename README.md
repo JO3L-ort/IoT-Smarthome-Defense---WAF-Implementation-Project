@@ -30,7 +30,7 @@ To mitigate the identified vulnerabilities, I implemented a two-layer security a
 ### Layer 1 : WAF Implementation 
 I deployed **ModSecurity** as a Web Application Firewall (WAF) for blocking some malicious traffic immediately before handles the source code
 
-* **Action:**
+* **Action:**\n
    Set the Configuration from **Passive Detection** to **Active Blocking** mode. This Ensure that any traffic request matching the attack signature immediately dropped with a 403 error, rather than just being logged.
 *  **Configuration Change**
      ```
@@ -38,6 +38,6 @@ I deployed **ModSecurity** as a Web Application Firewall (WAF) for blocking some
     # Example of Custom Rule to Block SQLi
     SecRule ARGS "UNION SELECT" "id:1001,deny,status:403,msg:'SQLi Detected'"
     ```
-*  **Result**
+*  **Result**\n
      The server now responds with **403 Forbidden** when SQLMap attempts to scan the target.
    
