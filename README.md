@@ -38,3 +38,6 @@ I deployed **ModSecurity** as a Web Application Firewall (WAF) for blocking some
     # Example of Custom Rule to Block SQLi
     SecRule ARGS "UNION SELECT" "id:1001,deny,status:403,msg:'SQLi Detected'"
     ```
+*  **Result**
+     The server now responds with **403 Forbidden** when SQLMap attempts to scan the target.
+   
