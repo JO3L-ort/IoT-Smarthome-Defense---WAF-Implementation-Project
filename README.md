@@ -107,18 +107,48 @@ Implemented `session_regenerate_id(true)` for mitigating **Session Fixation Atta
 	// If the login is succeed
 		//FIX: Destroy the old anonymous session ID and create a fresh one
 		session_regenerate_id(true);
-
+  
+		//Now safe to assign privileges
+		$_SESSION['username'] = $user['username'];
+  		$_SESSION['logged_in'] = true;
+		header("location: index_Defense Up.php");
+  
 ## 🛠️ Installation & Setup
 To replicate this lab environment locally, follow these steps:
 
 **1. Clone the Repository**
 ```bash
-git clone [https://github.com/JO3L-ort/NAMA_REPO_ANDA.git](https://github.com/USERNAME_ANDA/NAMA_REPO_ANDA.git)
-cd NAMA_REPO_ANDA
-		//Now safe to assign privileges
-		$_SESSION['username'] = $user['username'];
-  		$_SESSION['logged_in'] = true;
-		header("location: index_Defense Up.php");
+git clone [https://github.com/JO3L-ort/IoT-Smarthome-Defense---WAF-Implementation-Project.git](https://github.com/JO3L-ort/IoT-Smarthome-Defense---WAF-Implementation-Project.git)
+cd IoT-Smarthome-Defense---WAF-Implementation-Project
   ```
+
+**2. Database Setup**
+The project requires a MariaDB/MySQL database. You can set it up using either the command line or a GUI tool like phpMyAdmin. You could import the database with this database file 
+
+* **Step 1:** Download or locate the file `smarthome_hackthecity_Fixed.sql` in this repository.
+* **Step 2:** Import the database.
+    * **Via CLI:**
+        ```bash
+        mysql -u root -p < smarthome_hackthecity_Fixed.sql
+        ```
+    * **Via phpMyAdmin:**
+        1. Open phpMyAdmin.
+        2. Create a database named `smarthome_hackthecity_Fixed` (if not created automatically).
+        3. Go to the **Import** tab.
+        4. Select `smarthome_hackthecity_Fixed.sql` and click **Go**.
+
+* **Step 3:** Configure Connection
+    Open the PHP connection file (e.g., `validasi.php` or `config.php`) and ensure the credentials match:
+    ```php
+    $koneksi = new mysqli("localhost", "root", "", "smarthome_hackthecity_Fixed");
+    ```
+## Key Takeaways
+This project emphasizing the difference in defensive strength between **Network Security (WAF)** and **Appplication Security (Secure Code)**
+	1. **WAF is an External Shield, Not an Internal Cure**
+		WAF acts only as a perimeter defense and couldn't resolve system's logic flaws, even thought modsecurity could blocked standard SQLMap attacks succesfully. Total reliance on WAF could makes the risk of bypass attacks.
+	2. **Root Cause vs. Symptom Treatment:**
+		The only way to fundamentally eliminate _SQL Injection_ risks is patching the code with **Prepared Statement**. It treats the root cause by separating SQL syntax from user data, whereas WAF only treats the symptom (malicious traffic).
+	3. **The Value of Offensive Knowledge:**
+    Simulating the attack first (Red Teaming) was crucial to understanding exactly *what* needed to be protected. You cannot effectively defend what you do not know how to break.
 
   
