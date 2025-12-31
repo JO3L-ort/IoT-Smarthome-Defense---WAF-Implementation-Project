@@ -42,7 +42,7 @@ I deployed **ModSecurity** as a Web Application Firewall (WAF) for blocking some
      The server now responds with **403 Forbidden** when SQLMap attempts to scan the target.
    <img width="429" height="160" alt="SQLi payload_has been blocked by Firewall" src="https://github.com/user-attachments/assets/3911abf5-068d-4147-895a-0ebad53536fa" />
 
-## Layer 2 : Secure Code Hardening 
+### Layer 2 : Secure Code Hardening 
 A WAF shields the system from attacks, but secure code cures the vulnerability. I transitioned the codebase to Prepared Statements, effectively inoculating the system against SQL Injection rather than just blocking the symptoms.
 
 #### Patched Code
@@ -59,14 +59,14 @@ A WAF shields the system from attacks, but secure code cures the vulnerability. 
   ```
 * **Patched Code**
   ```
-  // PERBAIKAN #1 : Hilangkan fungsi real_escape_string
+  // PATCHED #1 : Removes real_escape_string function
   $username = $_POST['username'];
   $password = $_POST['password'];
   
-  // Query cek user (patched #1) 
+  // PATCHED #2 : Query cek user  
   $sql = "SELECT * FROM tb_user WHERE username=?";
   $stmt = $koneksi->prepare($sql);
   
-  //Patched #2 : BINDING THE INPUT 
+  //Patched #3 : BINDING THE INPUT 
   $stmt-> bind_param("s",$username);  
   ```
