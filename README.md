@@ -73,11 +73,45 @@ A WAF shields the system from attacks, but secure code cures the vulnerability. 
 #### Patching 2 : Upgrading Password Security (MD5 to Bcrypt) 
 Modernized the password storage mechanism by migrating from weak MD5 hashing to Bcrypt to align with industry-standard cryptographic practices.
 
-* **Implementation Code**
+* **Vulnerable Code (After )**
   ```
-  $user = $result->fetch_assoc();
-	$hash_dari_db = $user['password'];
+  $sql = "SELECT * FROM tb_user WHERE username='$username' AND password=MD5('$password')";
+  ```
+* **Patched Code**
+  ```
+  // Secure: Verifying input against the stored Bcrypt hash
+  // Note: $hash_dari_db was fetched safely via Prepared Statement
+
   if (password_verify($password_plaintext, $hash_dari_db)){
+	//Login is valid, proceed to login 
+		//buat keterangan kalo loginnya valid 
+		$_SESSION['logged_in'] = true;
   ```
-  
+#### Patching 3 : Preventing Session FIxation 
+Implemented `session_regenerate_id(true)` for mitigating **Session Fixation Attacks**
+
+* **Vulnerable Code (Before Patching)**
+  ```
+  if ($result->num_rows > 0) {
+    $_SESSION['username'] = $username;
+    header("Location: index.php");
+  ```
+
+* **Patched Code**
+  ```
+    $user = $result->fetch_assoc();
+	$hash_dari_db = $user['password'];
+	
+	if (password_verify($password_plaintext, $hash_dari_db)){
+		
+	// If the login is succeed
+		//FIX: Destroy the old anonymous session ID and create a fresh one
+		session_regenerate_id(true);
+		
+		//Now safe to assign privileges
+		$_SESSION['username'] = $user['username'];
+  		$_SESSION['logged_in'] = true;
+		header("location: index_Defense Up.php");
+  ```
+
   
