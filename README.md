@@ -107,7 +107,14 @@ Implemented `session_regenerate_id(true)` for mitigating **Session Fixation Atta
 	// If the login is succeed
 		//FIX: Destroy the old anonymous session ID and create a fresh one
 		session_regenerate_id(true);
-		
+
+## 🛠️ Installation & Setup
+To replicate this lab environment locally, follow these steps:
+
+**1. Clone the Repository**
+```bash
+git clone [https://github.com/JO3L-ort/NAMA_REPO_ANDA.git](https://github.com/USERNAME_ANDA/NAMA_REPO_ANDA.git)
+cd NAMA_REPO_ANDA
 		//Now safe to assign privileges
 		$_SESSION['username'] = $user['username'];
   		$_SESSION['logged_in'] = true;
