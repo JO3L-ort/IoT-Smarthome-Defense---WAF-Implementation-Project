@@ -46,7 +46,7 @@ I deployed **ModSecurity** as a Web Application Firewall (WAF) for blocking some
 A WAF shields the system from attacks, but secure code cures the vulnerability. I transitioned the codebase to Prepared Statements, effectively inoculating the system against SQL Injection rather than just blocking the symptoms.
 
 #### Patched Code
-##### Replace with Prepared Statement 
+#####  Patching 1 : Replace with Prepared Statement 
 * **Vulnerable Code (Before)**
   ```
   // Ambil data dari form
@@ -70,3 +70,4 @@ A WAF shields the system from attacks, but secure code cures the vulnerability. 
   //Patched #3 : BINDING THE INPUT 
   $stmt-> bind_param("s",$username);  
   ```
+  
