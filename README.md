@@ -48,7 +48,7 @@ A WAF shields the system from attacks, but secure code cures the vulnerability. 
 #### Patched Code
 #### Patching 1 : Replace with Prepared Statement 
 * **Vulnerable Code (Before)**
-  ```
+  ```<php
   // Ambil data dari form
   $username = $koneksi->real_escape_string($_POST['username']);
   $password = $koneksi->real_escape_string($_POST['password']);
@@ -56,9 +56,10 @@ A WAF shields the system from attacks, but secure code cures the vulnerability. 
   // Query cek user
   $sql = "SELECT * FROM tb_user WHERE username='$username' AND password=MD5('$password')";
   $result = $koneksi->query($sql);
+  ?>
   ```
 * **Patched Code**
-  ```
+  ```<php
   // PATCHED #1 : Removes real_escape_string function
   $username = $_POST['username'];
   $password = $_POST['password'];
@@ -68,7 +69,8 @@ A WAF shields the system from attacks, but secure code cures the vulnerability. 
   $stmt = $koneksi->prepare($sql);
   
   //Patched #3 : BINDING THE INPUT 
-  $stmt-> bind_param("s",$username);  
+  $stmt-> bind_param("s",$username);
+  ?>
   ```
 #### Patching 2 : Upgrading Password Security (MD5 to Bcrypt) 
 Modernized the password storage mechanism by migrating from weak MD5 hashing to Bcrypt to align with industry-standard cryptographic practices.
@@ -78,7 +80,7 @@ Modernized the password storage mechanism by migrating from weak MD5 hashing to 
   $sql = "SELECT * FROM tb_user WHERE username='$username' AND password=MD5('$password')";
   ```
 * **Patched Code**
-  ```
+  ```<php
   // Secure: Verifying input against the stored Bcrypt hash
   // Note: $hash_dari_db was fetched safely via Prepared Statement
 
@@ -86,19 +88,21 @@ Modernized the password storage mechanism by migrating from weak MD5 hashing to 
 	//Login is valid, proceed to login 
 		//buat keterangan kalo loginnya valid 
 		$_SESSION['logged_in'] = true;
+   ?>
   ```
 #### Patching 3 : Preventing Session FIxation 
 Implemented `session_regenerate_id(true)` for mitigating **Session Fixation Attacks**
 
 * **Vulnerable Code (Before Patching)**
-  ```
+  ```<php
   if ($result->num_rows > 0) {
     $_SESSION['username'] = $username;
     header("Location: index.php");
+  ?>
   ```
 
 * **Patched Code**
-  ```
+  ```<php
     $user = $result->fetch_assoc();
 	$hash_dari_db = $user['password'];
 	
@@ -112,6 +116,8 @@ Implemented `session_regenerate_id(true)` for mitigating **Session Fixation Atta
 		$_SESSION['username'] = $user['username'];
   		$_SESSION['logged_in'] = true;
 		header("location: index_Defense Up.php");
+   ?>
+
   
 ## 🛠️ Installation & Setup
 To replicate this lab environment locally, follow these steps:
@@ -156,4 +162,11 @@ This project emphasizing the difference in defensive strength between **Network 
 3. **The Value of Offensive Knowledge:**
     Simulating the attack first (Red Teaming) was crucial to understanding exactly *what* needed to be protected. You cannot effectively defend what you do 		 not know how to break.
 
-  
+## ⚠️ Legal Disclaimer
+**FOR EDUCATIONAL PURPOSES ONLY.**
+
+The attacks, tools, and techniques demonstrated in this project were performed in a controlled, isolated lab environment created specifically for this research.
+* **Target:** Localhost/Virtual Machine owned by the author.
+* **Intent:** To analyze vulnerabilities and implement defensive measures (Blue Team focus).
+
+The author is not responsible for any misuse of the information provided. All activities comply with ethical hacking guidelines and standard legal frameworks.
