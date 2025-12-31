@@ -146,9 +146,11 @@ The project requires a MariaDB/MySQL database. You can set it up using either th
 This project emphasizing the difference in defensive strength between **Network Security (WAF)** and **Appplication Security (Secure Code)**:
 
 1. **WAF is an External Shield, Not an Internal Cure**
+   
 	WAF acts only as a perimeter defense and couldn't resolve system's logic flaws, even thought modsecurity could blocked standard SQLMap attacks 		                succesfully. Total reliance on WAF could makes the risk of bypass attacks.
 		
 2. **Root Cause vs. Symptom Treatment:**
+   
 	The only way to fundamentally eliminate _SQL Injection_ risks is patching the code with **Prepared Statement**. It treats the root cause by separating SQL         syntax from user data, whereas WAF only treats the symptom (malicious traffic).
 		
 3. **The Value of Offensive Knowledge:**
