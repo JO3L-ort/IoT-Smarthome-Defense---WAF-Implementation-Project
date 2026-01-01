@@ -49,7 +49,7 @@ if ($result->num_rows > 0){
 		$_SESSION['username'] = $user['username'];
 		
 		//Setelah sesi selesai dibuat, maka dapat dialihkan ke dalam halaman admin
-		header("location: index_Defense Up.php");
+		header("location: index_patched.php");
 		exit(); 
 	} else{
 	// JIKA LOGIN GAGAL 
@@ -70,3 +70,4 @@ $koneksi->close();
 
 
 ?>
+
