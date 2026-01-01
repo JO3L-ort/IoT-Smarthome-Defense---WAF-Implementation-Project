@@ -2,7 +2,7 @@
 // dashboard.php
 session_start();
 if (isset($_SESSION['username'])) {
-    header("Location: index_Defense Up.php");
+    header("Location: index_patched.php");
     exit;
 }
 ?>
@@ -111,3 +111,4 @@ if (isset($_SESSION['username'])) {
     </div>
 </body>
 </html>
+
