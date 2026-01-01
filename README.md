@@ -47,7 +47,7 @@ I deployed **ModSecurity** as a Web Application Firewall (WAF) for blocking some
 A WAF shields the system from attacks, but secure code cures the vulnerability. I transitioned the codebase to Prepared Statements, effectively inoculating the system against SQL Injection rather than just blocking the symptoms.
 
 #### Patched Code
-#### Patching 1 : Replace with Prepared Statement 
+#### [SECURITY PATCH] 1 : Replace with Prepared Statement 
 * **Vulnerable Code (Before)**
   ```<php
   // Ambil data dari form
@@ -73,7 +73,7 @@ A WAF shields the system from attacks, but secure code cures the vulnerability. 
   $stmt-> bind_param("s",$username);
   ?>
   ```
-#### Patching 2 : Upgrading Password Security (MD5 to Bcrypt) 
+#### [SECURITY PATCH] 2 : Upgrading Password Security (MD5 to Bcrypt) 
 Modernized the password storage mechanism by migrating from weak MD5 hashing to Bcrypt to align with industry-standard cryptographic practices.
 
 * **Vulnerable Code (After )**
@@ -91,7 +91,7 @@ Modernized the password storage mechanism by migrating from weak MD5 hashing to 
 		$_SESSION['logged_in'] = true;
    ?>
   ```
-#### Patching 3 : Preventing Session FIxation 
+#### [SECURITY PATCH] 3 : Preventing Session FIxation 
 Implemented `session_regenerate_id(true)` for mitigating **Session Fixation Attacks**
 
 * **Vulnerable Code (Before Patching)**
