@@ -59,10 +59,10 @@ if ($result->num_rows > 0){
 		//Menghancurkan sesi sepenuhnya yang dibuat pada saat proses login
 		session_destroy(); 
 		
-		echo "<script>alert('username atau password Salah!');window.location='login.php'</script>";
+		echo "<script>alert('username atau password Salah!');window.location='login_patched.php'</script>";
 	}
 }else{
-	echo "<script>alert('username atau password Salah!');window.location='login.php'</script>";
+	echo "<script>alert('username atau password Salah!');window.location='login_patched.php'</script>";
 }
 
 $stmt->close();
@@ -70,4 +70,5 @@ $koneksi->close();
 
 
 ?>
+
 
